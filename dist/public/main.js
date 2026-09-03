@@ -112,7 +112,7 @@
             config: CONFIG
         };
 
-        console.log(`[縮略圖淡入] 已啟用 (持續時間: ${CONFIG.duration}ms, 延時: ${CONFIG.delay}ms)`);
+        // 控制台输出已移除
     }
 
     // 等待DOM加載
