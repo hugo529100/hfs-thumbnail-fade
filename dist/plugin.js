@@ -1,9 +1,10 @@
 // plugin.js
-exports.version = 1.2
+exports.version = 1.3
 exports.description = "Fade in effect for thumbnails"
 exports.apiRequired = 8.65
 exports.frontend_js = 'main.js'
 exports.repo = "Hug3O/thumbnail-fade"
+exports.depend = [{ "repo": "rejetto/thumbnails", "version": 4 }]
 
 exports.config = {
     duration: {
