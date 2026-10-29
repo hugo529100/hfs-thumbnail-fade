@@ -1,5 +1,5 @@
 // plugin.js
-exports.version = 1.3
+exports.version = 1.4
 exports.description = "Fade in effect for thumbnails"
 exports.apiRequired = 8.65
 exports.frontend_js = 'main.js'

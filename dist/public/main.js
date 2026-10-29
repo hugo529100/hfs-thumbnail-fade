@@ -1,10 +1,10 @@
 // main.js
 (function() {
     'use strict';
-    
+
     // 從 HFS 獲取配置，如果沒有則使用默認值
     const config = (window.HFS && HFS.getPluginConfig) ? HFS.getPluginConfig() : {}
-    
+
     const CONFIG = {
         duration: config.duration || 600,
         delay: config.delay || 300
@@ -18,6 +18,8 @@
     // 處理單個圖片
     function processImage(img) {
         if (img.dataset.fadeProcessed === 'true') return;
+        // 滚动中断中的图不处理，等恢复后再处理
+        if (img.classList.contains('scroll-suspended')) return;
         img.dataset.fadeProcessed = 'true';
 
         // 設置透明和過渡
@@ -26,6 +28,11 @@
 
         // 顯示圖片的函數
         function showImage() {
+            // 执行前再检查一次，若已被滚动中断，撤销标记，等恢复后重来
+            if (img.classList.contains('scroll-suspended')) {
+                delete img.dataset.fadeProcessed;
+                return;
+            }
             img.style.opacity = '1';
         }
 
@@ -38,7 +45,7 @@
                 setTimeout(showImage, getRandomDelay());
                 this.removeEventListener('load', onLoad);
             });
-            
+
             // 錯誤時也顯示
             img.addEventListener('error', function onError() {
                 showImage();
@@ -111,8 +118,6 @@
             process: processAllThumbnails,
             config: CONFIG
         };
-
-        // 控制台输出已移除
     }
 
     // 等待DOM加載
